@@ -1,24 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import useTodosWithFilter from "./useTodos";
+import Form from "./components/Form";
+import Filter from "./components/Filter";
+import TodoList from "./components/TodoList";
+import "./App.css";
+import AppContext from "./AppContext";
+import useTodosReducer from "./components/useTodosReducer";
 
 function App() {
+  const {
+    todos,
+    activeFilter,
+    deleteItem,
+    toggleTodo,
+    setTodos,
+    todosToDisplay,
+    setActiveFilter
+  } = useTodosWithFilter();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+    <div className="todo-app">
+      <Form setTodos={setTodos} todos={todos} />
+      {<Filter setActiveFilter={setActiveFilter} />}
+      {todos[0] ? (
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          Showing {activeFilter} ({todosToDisplay.length}:{""})
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      ) : null}
+      <TodoList
+        todos={todosToDisplay}
+        toggleTodo={toggleTodo}
+        deleteItem={deleteItem}
+      />
     </div>
   );
 }

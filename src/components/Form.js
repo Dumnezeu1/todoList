@@ -1,18 +1,23 @@
-import React, { useState, useContext } from "react";
-import AppContext from "../AppContext";
+import React, { useState } from "react";
 
 function Form({ setTodos, todos }) {
-  const xval = useContext(AppContext);
   const [todoText, setTodoText] = useState("");
   function addTodo(e) {
     e.preventDefault();
-    setTodos([
-      ...todos,
-      {
-        text: todoText,
-        done: false
-      }
-    ]);
+    var found = todos.find(element => {
+      console.log(todoText === element.text);
+      return todoText === element.text;
+    });
+    console.log(found);
+    if (todoText !== "" || found) {
+      setTodos([
+        ...todos,
+        {
+          text: todoText,
+          done: false
+        }
+      ]);
+    }
     setTodoText("");
   }
 

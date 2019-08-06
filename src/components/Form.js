@@ -2,17 +2,18 @@ import React, { useState } from "react";
 
 function Form({ setTodos, todos }) {
   const [todoText, setTodoText] = useState("");
+
+  const lastTodoId = Math.max(...todos.map(todo => todo.idTodo), 0); // com
+  const [id, setId] = useState(lastTodoId + 1);
   function addTodo(e) {
     e.preventDefault();
-    var found = todos.find(element => {
-      console.log(todoText === element.text);
-      return todoText === element.text;
-    });
-    console.log(found);
-    if (todoText !== "" || found) {
+
+    if (todoText.trim().length > 0) {
+      setId(() => id + 1);
       setTodos([
         ...todos,
         {
+          idTodo: id,
           text: todoText,
           done: false
         }

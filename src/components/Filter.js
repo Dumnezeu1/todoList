@@ -1,21 +1,30 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Filter({ setActiveFilter }) {
   let DONE = "DONE";
   let TODO = "TODO";
-  let ALL = "All";
-  function onFilterClick(filter) {
-    return function(e) {
-      e.preventDefault();
-      setActiveFilter(filter);
-    };
-  }
+  let ALL = "ALL";
+
   return (
-    <>
-      <button onClick={onFilterClick(ALL)}>{ALL}</button>|
-      <button onClick={onFilterClick(TODO)}>{TODO}</button>|
-      <button onClick={onFilterClick(DONE)}>{DONE}</button>
-    </>
+    <div>
+      <Link
+        onClick={e => {
+          setActiveFilter(ALL);
+        }}
+        to="/ "
+      >
+        {ALL}
+      </Link>
+      |
+      <Link onClick={e => setActiveFilter(DONE)} to="/done">
+        {DONE}
+      </Link>
+      |
+      <Link onClick={e => setActiveFilter(TODO)} to="/todo">
+        {TODO}
+      </Link>
+    </div>
   );
 }
 export default Filter;

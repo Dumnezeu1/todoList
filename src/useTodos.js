@@ -4,9 +4,9 @@ function useTodos() {
   const [todos, setTodos] = useState(
     JSON.parse(localStorage.getItem("todos")) || []
   );
-  let DONE = "DONE";
-  let TODO = "TODO";
-  let ALL = "All";
+  let DONE = "done";
+  let TODO = "todo";
+  let ALL = "all";
   const [activeFilter, setActiveFilter] = useState(ALL);
 
   useEffect(() => {
@@ -23,25 +23,21 @@ function useTodos() {
         return todos;
     }
   }
-
-  function toggleTodo(index) {
-    setTodos([
-      ...todos.slice(0, index),
-      { ...todos[index], done: !todos[index].done },
-      ...todos.slice(index + 1, todos.length)
-    ]);
+  function toggleTodo(id) {
+    const newTodos = [...todos];
+    const index = newTodos.findIndex(tod => tod.idTodo === id);
+    newTodos[index].done = !newTodos[index].done;
+    setTodos(newTodos);
   }
 
-  function deleteItem(index) {
-    console.log(index);
-    setTodos([
-      ...todos.slice(0, index),
-      ...todos.slice(index + 1, todos.length)
-    ]);
+  function deleteItem(id) {
+    const newTodos = [...todos];
+    const index = newTodos.findIndex(tod => tod.idTodo === id);
+    newTodos.splice(index, 1);
+    setTodos(newTodos);
   }
 
   const todosToDisplay = filterTodos(activeFilter);
-  console.log(todos);
 
   return {
     todosToDisplay,

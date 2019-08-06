@@ -19,15 +19,15 @@ function TodoList({ todos, toggleTodo, deleteItem }) {
     <div>
       <ul className="todo-list">
         {todos.map((todo, index) => (
-          <li key={todo.text} className="items">
+          <li key={todo.idTodo} className="items">
             <TodoListItem
               todo={todo}
               index={index}
               toggleTodo={() => {
-                toggleTodo(index);
+                toggleTodo(todo.idTodo);
               }}
               deleteItem={() => {
-                deleteItem(index);
+                deleteItem(todo.idTodo);
               }}
             />
           </li>
